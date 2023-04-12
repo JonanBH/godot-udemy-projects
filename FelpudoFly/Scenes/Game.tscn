@@ -1,0 +1,186 @@
+[gd_scene load_steps=18 format=3 uid="uid://br62gjbd4p8n6"]
+
+[ext_resource type="Texture2D" uid="uid://bpiw2t4l0t5wd" path="res://assets/Art/felpudo/felpudoVoa1.png" id="1_f6578"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_u50t7"]
+[ext_resource type="Script" path="res://scripts/felpudo.gd" id="1_wxr5i"]
+[ext_resource type="Texture2D" uid="uid://cmfpwhyxq2o6u" path="res://assets/Art/felpudo/felpudoVoa2.png" id="2_wa4ti"]
+[ext_resource type="Texture2D" uid="uid://bxdp6exyih041" path="res://assets/Art/felpudo/felpudoVoa3.png" id="3_aj50i"]
+[ext_resource type="Texture2D" uid="uid://bc2ko5m48keel" path="res://assets/Art/felpudo/felpudoVoa4.png" id="4_jihqk"]
+[ext_resource type="Texture2D" uid="uid://kfcnhmj6mte7" path="res://assets/Art/felpudo/felpudoVoa5.png" id="5_mumxi"]
+[ext_resource type="Texture2D" uid="uid://cjg4kpudtec8" path="res://assets/Art/felpudo/felpudoVoa6.png" id="6_dh33a"]
+[ext_resource type="Texture2D" uid="uid://c830hrwrrtsv8" path="res://assets/Art/fundo.png" id="8_ybjna"]
+[ext_resource type="Script" path="res://scripts/gerador_canos.gd" id="9_ts0jt"]
+
+[sub_resource type="Animation" id="Animation_lt0rk"]
+resource_name = "back_anim"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackAnim/Sprite1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-720, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackAnim/Sprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(720, 9.53674e-07), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5argn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackAnim/Sprite1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackAnim/Sprite2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(720, 9.53674e-07)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_guh6t"]
+_data = {
+"RESET": SubResource("Animation_5argn"),
+"back_anim": SubResource("Animation_lt0rk")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_185n5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f6578")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wa4ti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_aj50i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jihqk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mumxi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dh33a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lymo3"]
+radius = 42.0119
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bblr5"]
+b = Vector2(720, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_euxuo"]
+b = Vector2(720, 0)
+
+[node name="GameNode" type="Node2D"]
+script = ExtResource("1_u50t7")
+
+[node name="BackAnim" type="AnimationPlayer" parent="."]
+autoplay = "back_anim"
+libraries = {
+"": SubResource("AnimationLibrary_guh6t")
+}
+
+[node name="Sprite1" type="Sprite2D" parent="BackAnim"]
+z_index = -10
+scale = Vector2(2.67431, 2.2536)
+texture = ExtResource("8_ybjna")
+centered = false
+
+[node name="Sprite2" type="Sprite2D" parent="BackAnim"]
+z_index = -10
+position = Vector2(720, 9.53674e-07)
+scale = Vector2(2.67431, 2.2536)
+texture = ExtResource("8_ybjna")
+centered = false
+
+[node name="Felpudo" type="RigidBody2D" parent="."]
+position = Vector2(146, 541)
+gravity_scale = 3.0
+lock_rotation = true
+script = ExtResource("1_wxr5i")
+fly_force = 1000
+
+[node name="FelpudoAnim" type="AnimatedSprite2D" parent="Felpudo"]
+sprite_frames = SubResource("SpriteFrames_185n5")
+autoplay = "default"
+frame = 5
+frame_progress = 0.170465
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Felpudo"]
+position = Vector2(15, 5)
+shape = SubResource("CircleShape2D_lymo3")
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+
+[node name="TopBound" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(0, 1)
+shape = SubResource("SegmentShape2D_bblr5")
+
+[node name="BottomBound" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(0, 1080)
+shape = SubResource("SegmentShape2D_euxuo")
+
+[node name="Canos" type="Node2D" parent="."]
+script = ExtResource("9_ts0jt")
+max_random_variation = 350
+
+[node name="Timer" type="Timer" parent="Canos"]
+wait_time = 3.0
+autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="Canos"]
+position = Vector2(1300, 0)
+gizmo_extents = 100.0
+
+[node name="TimeToReplay" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 115.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 64
+text = "Score : 0"
+
+[connection signal="timeout" from="Canos/Timer" to="Canos" method="_on_timer_timeout"]
+[connection signal="timeout" from="TimeToReplay" to="." method="_on_time_to_replay_timeout"]

@@ -1,0 +1,207 @@
+[gd_scene load_steps=15 format=3 uid="uid://b1662vtg5o15m"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_87x6g"]
+[ext_resource type="Texture2D" uid="uid://ll2cw6cx7ics" path="res://assets/img_fundoChao.png" id="2_hpjka"]
+[ext_resource type="Script" path="res://scripts/felpudo.gd" id="3_f1m7t"]
+[ext_resource type="Texture2D" uid="uid://wpmwq082ukhk" path="res://assets/felpudoIdle.png" id="4_xvvqp"]
+[ext_resource type="Texture2D" uid="uid://1y2cv2stx1mu" path="res://assets/felpudoBate.png" id="5_jrcot"]
+[ext_resource type="Texture2D" uid="uid://sn42cuqbkm5q" path="res://assets/grave.png" id="6_x3s0q"]
+[ext_resource type="Script" path="res://scripts/bar.gd" id="7_e0ldq"]
+[ext_resource type="Texture2D" uid="uid://drx5nas11jn14" path="res://assets/barra_recipiente.png" id="7_fkt2f"]
+[ext_resource type="Texture2D" uid="uid://b6806mqy360rl" path="res://assets/barra.png" id="8_ltjkx"]
+[ext_resource type="FontFile" uid="uid://de160hc44rst5" path="res://assets/font.ttf" id="10_8llm1"]
+
+[sub_resource type="Animation" id="Animation_yy52q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hit:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_eqpu6"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Idle:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hit:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_k4rmb"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hit:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Idle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wsfnr"]
+_data = {
+"RESET": SubResource("Animation_yy52q"),
+"hit": SubResource("Animation_eqpu6"),
+"idle": SubResource("Animation_k4rmb")
+}
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_87x6g")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(-768, -8)
+scale = Vector2(2.0375, 2.0375)
+texture = ExtResource("2_hpjka")
+centered = false
+
+[node name="Felpudo" type="Node2D" parent="."]
+position = Vector2(220, 1070)
+script = ExtResource("3_f1m7t")
+
+[node name="Idle" type="Sprite2D" parent="Felpudo"]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_xvvqp")
+
+[node name="Hit" type="Sprite2D" parent="Felpudo"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_jrcot")
+
+[node name="Grave" type="Sprite2D" parent="Felpudo"]
+visible = false
+modulate = Color(0.345098, 0.698039, 0.172549, 1)
+position = Vector2(-46, 40)
+scale = Vector2(0.208, 0.145)
+texture = ExtResource("6_x3s0q")
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Felpudo"]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_wsfnr")
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Barrels" type="Node2D" parent="."]
+
+[node name="DestBarrels" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TimeBar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 50.0
+offset_right = 20.0
+offset_bottom = 90.0
+grow_horizontal = 2
+script = ExtResource("7_e0ldq")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/TimeBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+max_value = 1.0
+step = 0.01
+value = 1.0
+texture_under = ExtResource("7_fkt2f")
+texture_progress = ExtResource("8_ltjkx")
+texture_progress_offset = Vector2(6, 5)
+
+[node name="Points" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 87.0
+offset_bottom = 87.0
+grow_horizontal = 2
+
+[node name="PointLabel" type="Label" parent="CanvasLayer/Points"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 172.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.972549, 0.894118, 0.458824, 1)
+theme_override_fonts/font = ExtResource("10_8llm1")
+theme_override_font_sizes/font_size = 140
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResetGame" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="lost" from="CanvasLayer/TimeBar" to="." method="_on_time_bar_lost"]
+[connection signal="timeout" from="ResetGame" to="." method="_on_reset_game_timeout"]

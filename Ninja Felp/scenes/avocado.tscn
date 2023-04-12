@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqww027ey8mi8"]
+
+[ext_resource type="PackedScene" uid="uid://c7mjuorogch0c" path="res://scenes/pear.tscn" id="1_nbf6w"]
+[ext_resource type="Texture2D" uid="uid://d2yflskr4tc2q" path="res://assets/Avocado_Idle0001.png" id="2_cl6ow"]
+
+[node name="Avocado" instance=ExtResource("1_nbf6w")]
+
+[node name="Sprite0" parent="." index="0"]
+texture = ExtResource("2_cl6ow")
+
+[node name="Sprite1" parent="Body1" index="0"]
+texture = ExtResource("2_cl6ow")
+
+[node name="Sprite2" parent="Body2" index="0"]
+texture = ExtResource("2_cl6ow")

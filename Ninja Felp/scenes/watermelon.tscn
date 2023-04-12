@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cguat71mijgbl"]
+
+[ext_resource type="PackedScene" uid="uid://c7mjuorogch0c" path="res://scenes/pear.tscn" id="1_3kvrx"]
+[ext_resource type="Texture2D" uid="uid://dmkraehrwmxgu" path="res://assets/Watermelon_Idle0001.png" id="2_f15wp"]
+
+[node name="Watermelon" instance=ExtResource("1_3kvrx")]
+
+[node name="Sprite0" parent="." index="0"]
+texture = ExtResource("2_f15wp")
+
+[node name="Sprite1" parent="Body1" index="0"]
+texture = ExtResource("2_f15wp")
+
+[node name="Sprite2" parent="Body2" index="0"]
+texture = ExtResource("2_f15wp")

@@ -1,0 +1,149 @@
+[gd_scene load_steps=6 format=3 uid="uid://drgcu6wne0u6e"]
+
+[ext_resource type="Texture2D" uid="uid://b6g5amu88hg1j" path="res://assets/bgfruitninja.jpg" id="1_dqwga"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_t8f0a"]
+[ext_resource type="Script" path="res://scripts/input_proc.gd" id="3_byi0o"]
+[ext_resource type="FontFile" uid="uid://7422dfwo1856" path="res://assets/soupofjustice.ttf" id="4_yq6oa"]
+[ext_resource type="Texture2D" uid="uid://c6fw3n1ynthyp" path="res://assets/hud_vidas.png" id="5_jg5a3"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_t8f0a")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+scale = Vector2(0.808125, 0.610833)
+texture = ExtResource("1_dqwga")
+centered = false
+
+[node name="Fruits" type="Node2D" parent="."]
+
+[node name="TimerGenerator" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="InputProc" type="Node2D" parent="."]
+script = ExtResource("3_byi0o")
+cut_layer = 2
+
+[node name="Interval" type="Timer" parent="InputProc"]
+wait_time = 0.05
+
+[node name="Limit" type="Timer" parent="InputProc"]
+wait_time = 2.0
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 981.0
+offset_top = 15.0
+offset_right = 1261.0
+offset_bottom = 169.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.333333, 0.639216, 0, 1)
+theme_override_fonts/font = ExtResource("4_yq6oa")
+theme_override_font_sizes/font_size = 150
+text = "0"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 321.0
+offset_bottom = 346.0
+scale = Vector2(0.3, 0.3)
+
+[node name="TextureRect" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_jg5a3")
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_jg5a3")
+
+[node name="TextureRect3" type="TextureRect" parent="HUD/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_jg5a3")
+
+[node name="GameOverScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 292.0
+offset_top = 28.0
+offset_right = 1018.0
+offset_bottom = 182.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.870588, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_yq6oa")
+theme_override_font_sizes/font_size = 150
+text = "Game Over"
+
+[node name="Label2" type="Label" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 292.0
+offset_top = 492.0
+offset_right = 1018.0
+offset_bottom = 658.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_yq6oa")
+theme_override_font_sizes/font_size = 80
+text = "touch to play
+again"
+horizontal_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 292.0
+offset_top = 192.0
+offset_right = 1018.0
+offset_bottom = 358.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_yq6oa")
+theme_override_font_sizes/font_size = 80
+text = "HIGH SCORE 
+"
+horizontal_alignment = 1
+
+[node name="HighScore" type="Label" parent="GameOverScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 292.0
+offset_top = 278.0
+offset_right = 1018.0
+offset_bottom = 444.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_yq6oa")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="TimerGenerator" to="." method="_on_timer_generator_timeout"]
+[connection signal="timeout" from="InputProc/Interval" to="InputProc" method="_on_interval_timeout"]
+[connection signal="timeout" from="InputProc/Limit" to="InputProc" method="_on_limit_timeout"]

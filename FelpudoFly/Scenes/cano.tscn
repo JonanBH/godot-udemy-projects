@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7qd0luj2g076"]
+
+[ext_resource type="Script" path="res://scripts/Cano.gd" id="1_7kh5q"]
+[ext_resource type="Texture2D" uid="uid://bjthe4q2uslmb" path="res://assets/Art/cano.png" id="2_pgeuu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svy33"]
+size = Vector2(121, 1023)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_uhapv"]
+b = Vector2(0, 296)
+
+[node name="Cano" type="Node2D"]
+script = ExtResource("1_7kh5q")
+speed = -500
+
+[node name="Top" type="Sprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(2, 4)
+texture = ExtResource("2_pgeuu")
+
+[node name="Bottom" type="Sprite2D" parent="."]
+position = Vector2(0, 1300)
+scale = Vector2(2, 4)
+texture = ExtResource("2_pgeuu")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_svy33")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 1290.5)
+shape = SubResource("RectangleShape2D_svy33")
+
+[node name="Ponto" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ponto"]
+position = Vector2(64, 500)
+shape = SubResource("SegmentShape2D_uhapv")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Ponto" to="." method="_on_ponto_body_entered"]

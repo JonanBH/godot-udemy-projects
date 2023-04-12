@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://drtun5yhfrpu1"]
+
+[ext_resource type="PackedScene" uid="uid://c7mjuorogch0c" path="res://scenes/pear.tscn" id="1_i4pmi"]
+[ext_resource type="Texture2D" uid="uid://bnc6dxdveaacn" path="res://assets/PineApple_Idle0001.png" id="2_ealga"]
+
+[node name="Pineapple" instance=ExtResource("1_i4pmi")]
+
+[node name="Sprite0" parent="." index="0"]
+texture = ExtResource("2_ealga")
+
+[node name="Sprite1" parent="Body1" index="0"]
+texture = ExtResource("2_ealga")
+
+[node name="Sprite2" parent="Body2" index="0"]
+texture = ExtResource("2_ealga")

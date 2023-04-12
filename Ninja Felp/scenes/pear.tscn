@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7mjuorogch0c"]
+
+[ext_resource type="Texture2D" uid="uid://r8sqwqbh5lip" path="res://assets/Pear_Idle0001.png" id="1_166dv"]
+[ext_resource type="Script" path="res://scripts/fruit.gd" id="1_x2tuw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fc2c"]
+radius = 70.0286
+
+[node name="Pear" type="RigidBody2D"]
+collision_layer = 2
+gravity_scale = 2.0
+script = ExtResource("1_x2tuw")
+
+[node name="Sprite0" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_166dv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("CircleShape2D_8fc2c")
+
+[node name="Body1" type="RigidBody2D" parent="."]
+gravity_scale = 6.0
+freeze = true
+
+[node name="Sprite1" type="Sprite2D" parent="Body1"]
+position = Vector2(-35, 0)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_166dv")
+region_enabled = true
+region_rect = Rect2(0, 0, 234, 474)
+
+[node name="Body2" type="RigidBody2D" parent="."]
+gravity_scale = 6.0
+freeze = true
+
+[node name="Sprite2" type="Sprite2D" parent="Body2"]
+position = Vector2(32, 0)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_166dv")
+region_enabled = true
+region_rect = Rect2(234, 0, 234, 474)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://u6jp2clw7dnw"]
+
+[ext_resource type="PackedScene" uid="uid://c7mjuorogch0c" path="res://scenes/pear.tscn" id="1_45iim"]
+[ext_resource type="Texture2D" uid="uid://b0tjp7otjnj2l" path="res://assets/Banana_Idle0001.png" id="2_rol8s"]
+
+[node name="Banana" instance=ExtResource("1_45iim")]
+
+[node name="Sprite0" parent="." index="0"]
+texture = ExtResource("2_rol8s")
+
+[node name="Sprite1" parent="Body1" index="0"]
+texture = ExtResource("2_rol8s")
+
+[node name="Sprite2" parent="Body2" index="0"]
+texture = ExtResource("2_rol8s")

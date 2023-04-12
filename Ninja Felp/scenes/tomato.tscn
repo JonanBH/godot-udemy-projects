@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba8i5bbjno7tl"]
+
+[ext_resource type="PackedScene" uid="uid://c7mjuorogch0c" path="res://scenes/pear.tscn" id="1_ptgtl"]
+[ext_resource type="Texture2D" uid="uid://cx3hgnpesj3un" path="res://assets/Tomato_Idle0001.png" id="2_jvpv6"]
+
+[node name="Tomato" instance=ExtResource("1_ptgtl")]
+
+[node name="Sprite0" parent="." index="0"]
+texture = ExtResource("2_jvpv6")
+
+[node name="Sprite1" parent="Body1" index="0"]
+texture = ExtResource("2_jvpv6")
+
+[node name="Sprite2" parent="Body2" index="0"]
+texture = ExtResource("2_jvpv6")

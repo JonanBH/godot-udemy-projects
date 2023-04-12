@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cio2b52o13f2i"]
+
+[ext_resource type="Texture2D" uid="uid://c2fu2je8cqtn8" path="res://assets/barril.png" id="1_1v30g"]
+[ext_resource type="Script" path="res://scripts/barrel.gd" id="1_5pvly"]
+[ext_resource type="AnimationLibrary" uid="uid://dv61yiw5ld8g2" path="res://anim/barrel.tres" id="3_xgvd8"]
+
+[node name="Barrel" type="Node2D"]
+script = ExtResource("1_5pvly")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_1v30g")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("3_xgvd8")
+}

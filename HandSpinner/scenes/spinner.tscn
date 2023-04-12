@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckpcnjr46jhir"]
+
+[ext_resource type="Script" path="res://scripts/spinner.gd" id="1_4h21y"]
+[ext_resource type="Texture2D" uid="uid://ce63trrte5qj4" path="res://assets/black_ready.png" id="1_nk5ip"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6wcr8"]
+radius = 85.0941
+
+[node name="Spinner" type="Node2D"]
+script = ExtResource("1_4h21y")
+
+[node name="body" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="body"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_nk5ip")
+
+[node name="Contact" type="Area2D" parent="body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body/Contact"]
+position = Vector2(138, 79)
+shape = SubResource("CircleShape2D_6wcr8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="body/Contact"]
+position = Vector2(-141, 83)
+shape = SubResource("CircleShape2D_6wcr8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="body/Contact"]
+position = Vector2(-6, -160)
+shape = SubResource("CircleShape2D_6wcr8")
+
+[connection signal="input_event" from="body/Contact" to="." method="_on_contact_input_event"]

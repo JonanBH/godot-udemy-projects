@@ -1,0 +1,208 @@
+[gd_scene load_steps=11 format=3 uid="uid://debqmundvw5py"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_gwx2s"]
+[ext_resource type="PackedScene" uid="uid://ckpcnjr46jhir" path="res://scenes/spinner.tscn" id="1_kw8su"]
+[ext_resource type="Texture2D" uid="uid://ce63trrte5qj4" path="res://assets/black_ready.png" id="2_nc71w"]
+[ext_resource type="Texture2D" uid="uid://bwoymi3xy3lw2" path="res://assets/red_ready.png" id="3_s47lu"]
+[ext_resource type="Texture2D" uid="uid://bki1ax4e8mm6i" path="res://assets/yellow_ready.png" id="4_x5ik4"]
+[ext_resource type="Script" path="res://scripts/speedBar.gd" id="5_6728j"]
+[ext_resource type="FontFile" uid="uid://blls3gt2aphuy" path="res://assets/font.ttf" id="6_n83pu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o5p6l"]
+bg_color = Color(0.478431, 0.478431, 0.478431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g88xk"]
+bg_color = Color(0.478431, 0.478431, 0.478431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3t3i0"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_gwx2s")
+
+[node name="Spinner1" parent="." instance=ExtResource("1_kw8su")]
+position = Vector2(360, 1000)
+rotation = 3.14159
+max_speed = 50.0
+
+[node name="Spinner2" parent="." instance=ExtResource("1_kw8su")]
+position = Vector2(360, 280)
+max_speed = 50.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_right = 720.0
+offset_bottom = 10.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o5p6l")
+
+[node name="P1" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 612.0
+offset_top = 655.0
+offset_right = 652.0
+offset_bottom = 695.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/P1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="btnBlack" type="TextureButton" parent="Control/P1/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("2_nc71w")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="btnRed" type="TextureButton" parent="Control/P1/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("3_s47lu")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="btnYellow" type="TextureButton" parent="Control/P1/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_x5ik4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SpeedBar" type="ProgressBar" parent="Control/P1"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -511.0
+offset_top = -6.0
+offset_right = -339.0
+offset_bottom = -16.0
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(3.68915, 3.34943)
+theme_override_styles/background = SubResource("StyleBoxFlat_g88xk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3t3i0")
+show_percentage = false
+script = ExtResource("5_6728j")
+
+[node name="score" type="Label" parent="Control/P1"]
+layout_mode = 0
+offset_left = -612.0
+offset_top = -25.0
+offset_right = 108.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0.478431, 0.478431, 0.478431, 1)
+theme_override_fonts/font = ExtResource("6_n83pu")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Control/P1"]
+layout_mode = 0
+offset_left = -612.0
+offset_top = 86.0
+offset_right = 108.0
+offset_bottom = 209.0
+theme_override_colors/font_color = Color(0.733333, 0.0117647, 0.0117647, 1)
+theme_override_fonts/font = ExtResource("6_n83pu")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+
+[node name="P2" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 109.0
+offset_top = 624.0
+offset_right = 149.0
+offset_bottom = 664.0
+rotation = 3.14159
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/P2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="btnBlack" type="TextureButton" parent="Control/P2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("2_nc71w")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="btnRed" type="TextureButton" parent="Control/P2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("3_s47lu")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="btnYellow" type="TextureButton" parent="Control/P2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_x5ik4")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="SpeedBar" type="ProgressBar" parent="Control/P2"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -511.0
+offset_top = -6.0
+offset_right = -339.0
+offset_bottom = -16.0
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(3.68915, 3.34943)
+theme_override_styles/background = SubResource("StyleBoxFlat_g88xk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3t3i0")
+show_percentage = false
+script = ExtResource("5_6728j")
+
+[node name="score" type="Label" parent="Control/P2"]
+layout_mode = 0
+offset_left = -612.0
+offset_top = -25.0
+offset_right = 108.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0.478431, 0.478431, 0.478431, 1)
+theme_override_fonts/font = ExtResource("6_n83pu")
+theme_override_font_sizes/font_size = 100
+text = "0"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="Control/P2"]
+layout_mode = 0
+offset_left = -612.0
+offset_top = 86.0
+offset_right = 108.0
+offset_bottom = 209.0
+theme_override_colors/font_color = Color(0.733333, 0.0117647, 0.0117647, 1)
+theme_override_fonts/font = ExtResource("6_n83pu")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+
+[node name="BetweenRounds" type="Timer" parent="."]
+
+[connection signal="speed_update" from="Spinner1" to="Control/P1/SpeedBar" method="_on_spinner_speed_update"]
+[connection signal="zero_speed_reached" from="Spinner1" to="." method="_on_spinner_1_zero_speed_reached"]
+[connection signal="speed_update" from="Spinner2" to="Control/P2/SpeedBar" method="_on_spinner_speed_update"]
+[connection signal="zero_speed_reached" from="Spinner2" to="." method="_on_spinner_2_zero_speed_reached"]
+[connection signal="pressed" from="Control/P1/VBoxContainer/btnBlack" to="Spinner1" method="_on_btn_black_pressed"]
+[connection signal="pressed" from="Control/P1/VBoxContainer/btnRed" to="Spinner1" method="_on_btn_red_pressed"]
+[connection signal="pressed" from="Control/P1/VBoxContainer/btnYellow" to="Spinner1" method="_on_btn_yellow_pressed"]
+[connection signal="pressed" from="Control/P2/VBoxContainer/btnBlack" to="Spinner2" method="_on_btn_black_pressed"]
+[connection signal="pressed" from="Control/P2/VBoxContainer/btnRed" to="Spinner2" method="_on_btn_red_pressed"]
+[connection signal="pressed" from="Control/P2/VBoxContainer/btnYellow" to="Spinner2" method="_on_btn_yellow_pressed"]
+[connection signal="timeout" from="BetweenRounds" to="." method="_on_between_rounds_timeout"]
