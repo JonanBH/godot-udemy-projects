@@ -1,0 +1,380 @@
+[gd_scene load_steps=39 format=3 uid="uid://0umvxcbppexx"]
+
+[ext_resource type="Texture2D" uid="uid://dsv66h6ilcemr" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_stand.png" id="1_a3xog"]
+[ext_resource type="Script" path="res://scritps/player.gd" id="1_f0cme"]
+[ext_resource type="Script" path="res://scritps/game.gd" id="1_porkk"]
+[ext_resource type="Texture2D" uid="uid://clrxeo2a6qlh7" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_walk1.png" id="2_4wrbd"]
+[ext_resource type="Texture2D" uid="uid://h40pkw7hrrx0" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_fall.png" id="2_nium3"]
+[ext_resource type="Texture2D" uid="uid://c1cbelo7s57oy" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_walk2.png" id="3_wvagh"]
+[ext_resource type="Texture2D" uid="uid://cc15wcqg4uj8t" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_walk3.png" id="4_3bef8"]
+[ext_resource type="Texture2D" uid="uid://c1l65xa6kbi4w" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_up1.png" id="4_mdg5t"]
+[ext_resource type="Texture2D" uid="uid://di34avvxi16a2" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_up2.png" id="5_56x4q"]
+[ext_resource type="Texture2D" uid="uid://bgw2e1f8xaivu" path="res://add_ons/Abstract Platformer/PNG/Players/Player Grey/playerGrey_up3.png" id="6_67rsm"]
+[ext_resource type="TileSet" uid="uid://30d04hglovlm" path="res://resources/tileset.tres" id="10_56ig1"]
+[ext_resource type="Texture2D" uid="uid://bcjk1u1e7sqpm" path="res://add_ons/Rocky Roads/Deco/clouds.png" id="11_hnjod"]
+[ext_resource type="PackedScene" uid="uid://c42ui2enkf6bj" path="res://scenes/coin.tscn" id="12_hsqmw"]
+[ext_resource type="PackedScene" uid="uid://pgcbusyyaply" path="res://scenes/snake.tscn" id="13_x4nuu"]
+[ext_resource type="Texture2D" uid="uid://b0i3g6w6sgljc" path="res://add_ons/Rocky Roads/Objects/crate.png" id="15_m2dnt"]
+[ext_resource type="Script" path="res://scritps/destructible_block.gd" id="15_vl4wy"]
+[ext_resource type="PackedScene" uid="uid://c34fk0v7m5358" path="res://scenes/moving_platform.tscn" id="17_bunfm"]
+[ext_resource type="Texture2D" uid="uid://bema2nmlgrtub" path="res://add_ons/Course/esquerda0.png" id="18_nsr6j"]
+[ext_resource type="Texture2D" uid="uid://b5wdg0745d2uw" path="res://add_ons/Course/esquerda1.png" id="19_q5lyq"]
+[ext_resource type="Texture2D" uid="uid://e0v3pbopyrm6" path="res://add_ons/Course/direita0.png" id="20_b6t1g"]
+[ext_resource type="Texture2D" uid="uid://l6bafsey4tm5" path="res://add_ons/Course/direita1.png" id="21_r4d5d"]
+[ext_resource type="Texture2D" uid="uid://byxwprs5yjhgm" path="res://add_ons/Course/cima0.png" id="22_kplho"]
+[ext_resource type="Texture2D" uid="uid://cjuy55ahg1way" path="res://add_ons/Course/cima1.png" id="23_oon37"]
+[ext_resource type="Texture2D" uid="uid://uojclt7ov2c8" path="res://add_ons/Abstract Platformer/PNG/Other/flagRed_up.png" id="24_04f1b"]
+[ext_resource type="Texture2D" uid="uid://cnvvkiqy1fo1r" path="res://add_ons/Rocky Roads/Objects/coin_gold.png" id="24_umxft"]
+[ext_resource type="FontFile" uid="uid://mywydc0lam5c" path="res://add_ons/Abstract Platformer/Kenney Mini.ttf" id="25_1t0yg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wua3o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nium3")
+}],
+"loop": true,
+"name": &"falling",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_a3xog")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mdg5t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_56x4q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_67rsm")
+}],
+"loop": true,
+"name": &"jumping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4wrbd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wvagh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3bef8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wvagh")
+}],
+"loop": true,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgtnl"]
+size = Vector2(20, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7sc5"]
+size = Vector2(15, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ylsn"]
+size = Vector2(20, 10)
+
+[sub_resource type="Curve2D" id="Curve2D_s8h2o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 790, 376, 0, 0, 0, 0, 893, 375)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rore"]
+size = Vector2(32, 27)
+
+[sub_resource type="Animation" id="Animation_6tq37"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n2hv4"]
+resource_name = "destroy"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddoqq"]
+_data = {
+"RESET": SubResource("Animation_6tq37"),
+"destroy": SubResource("Animation_n2hv4")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_u8uk7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1008, 400, 0, 0, 0, 0, 1238, 399)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m4wt8"]
+bg_color = Color(0.6, 0.6, 0.6, 0.301961)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0862745, 0.858824, 0.498039, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_km32a"]
+size = Vector2(20, 382)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_porkk")
+
+[node name="DeadCamera" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_bottom = 900
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(56, 276)
+collision_layer = 2
+script = ExtResource("1_f0cme")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Player"]
+z_index = 1
+position = Vector2(0, -23)
+sprite_frames = SubResource("SpriteFrames_wua3o")
+animation = &"run"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_tgtnl")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_bottom = 900
+position_smoothing_enabled = true
+
+[node name="Body" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Body"]
+position = Vector2(-0.5, -22.5)
+shape = SubResource("RectangleShape2D_n7sc5")
+
+[node name="Feet" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Feet"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_6ylsn")
+
+[node name="Head" type="Area2D" parent="Player"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Head"]
+position = Vector2(0, -42)
+shape = SubResource("RectangleShape2D_6ylsn")
+
+[node name="World" type="TileMap" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+tile_set = ExtResource("10_56ig1")
+format = 2
+layer_0/name = "water"
+layer_0/tile_data = PackedInt32Array(1114153, 131074, 4, 1048617, 262146, 3, 983081, 262146, 3, 917545, 327682, 3, 852009, 327682, 3, 786473, 196610, 1, 1114152, 65538, 4, 1048616, 65538, 3, 983080, 65538, 3, 917544, 65538, 3, 852008, 65538, 3, 786472, 131074, 1, 1114160, 393218, 4, 1048624, 393218, 3, 983088, 393218, 3, 917552, 393218, 3, 852016, 393218, 3, 786480, 393218, 3, 1114159, 131074, 4, 1048623, 262146, 3, 983087, 196610, 2, 917551, 262146, 3, 852015, 196610, 2, 786479, 327682, 3, 1114158, 262146, 4, 1048622, 262146, 2, 983086, 196610, 3, 917550, 262146, 3, 852014, 262146, 3, 786478, 327682, 3, 1114157, 131074, 4, 1048621, 196610, 2, 983085, 196610, 2, 917549, 196610, 2, 852013, 196610, 3, 786477, 131074, 2, 1114156, 262146, 4, 1048620, 262146, 2, 983084, 131074, 3, 917548, 196610, 2, 852012, 131074, 3, 786476, 262146, 1, 1114155, 262146, 4, 1048619, 262146, 2, 983083, 131074, 3, 917547, 196610, 3, 852011, 327682, 3, 786475, 262146, 1, 1114154, 196610, 4, 1048618, 327682, 3, 983082, 131074, 3, 917546, 262146, 2, 852010, 262146, 2, 786474, 196610, 1, 720944, 327682, 1, 720943, 262146, 1, 720942, 262146, 1, 720941, 131074, 1, 720950, 655362, 3, 720949, 589826, 3, 720948, 589826, 3, 720947, 524290, 3, 917563, 131074, 4, 852027, 262146, 3, 786491, 327682, 2, 720955, 393218, 2, 917562, 262146, 4, 852026, 327682, 3, 786490, 262146, 3, 720954, 196610, 1, 917561, 65538, 4, 852025, 65538, 3, 786489, 65538, 3, 720953, 65538, 2, 917566, 393218, 4, 852030, 393218, 3, 786494, 393218, 2, 917565, 262146, 4, 852029, 131074, 3, 786493, 262146, 1, 917564, 262146, 4, 852028, 262146, 3, 786492, 262146, 1, 917582, 262146, 4, 852046, 131074, 3, 786510, 262146, 1, 917581, 327682, 4, 852045, 196610, 3, 786509, 262146, 1, 917580, 262146, 4, 852044, 327682, 3, 786508, 196610, 1, 917579, 262146, 4, 852043, 262146, 3, 786507, 262146, 1, 917578, 327682, 4, 852042, 196610, 3, 786506, 196610, 1, 917577, 131074, 4, 852041, 131074, 3, 786505, 196610, 1, 917576, 196610, 4, 852040, 196610, 3, 786504, 196610, 1, 917575, 327682, 4, 852039, 196610, 3, 786503, 262146, 1, 917574, 327682, 4, 852038, 196610, 2, 786502, 196610, 1, 917573, 262146, 4, 852037, 327682, 3, 786501, 196610, 1, 917572, 196610, 4, 852036, 196610, 3, 786500, 262146, 1, 917571, 327682, 4, 852035, 131074, 3, 786499, 196610, 1, 917570, 65538, 4, 852034, 65538, 3, 786498, 65538, 2, 917587, 393218, 4, 852051, 393218, 3, 786515, 393218, 2, 917586, 327682, 4, 852050, 131074, 3, 786514, 196610, 1, 917585, 327682, 4, 852049, 131074, 3, 786513, 196610, 1, 917584, 327682, 4, 852048, 262146, 2, 786512, 262146, 1, 917583, 327682, 4, 852047, 262146, 2, 786511, 196610, 1)
+layer_1/name = "ground"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array(786445, 131074, 1, 786446, 196610, 1, 786447, 262146, 1, 786448, 196610, 1, 786449, 196610, 1, 786450, 262146, 1, 786451, 196610, 1, 786452, 262146, 1, 786453, 327682, 1, 851989, 393218, 3, 851988, 196610, 3, 851987, 262146, 2, 851986, 131074, 3, 851985, 262146, 3, 851984, 196610, 2, 851981, 131074, 2, 851982, 196610, 2, 851983, 196610, 3, 851980, 262146, 1, 851979, 262146, 1, 917516, 196610, 2, 917517, 262146, 2, 917515, 327682, 3, 917514, 327682, 3, 917518, 327682, 3, 917519, 327682, 3, 917520, 262146, 2, 917521, 131074, 3, 917522, 262146, 3, 917523, 262146, 3, 917524, 196610, 2, 917525, 393218, 3, 851978, 262146, 1, 983050, 196610, 3, 983051, 262146, 3, 983052, 131074, 3, 983053, 262146, 2, 983054, 131074, 3, 983055, 196610, 3, 983056, 327682, 3, 983057, 327682, 3, 983058, 196610, 2, 983059, 327682, 3, 983060, 327682, 3, 1048596, 196610, 4, 1048597, 393218, 4, 983061, 393218, 3, 1048595, 196610, 4, 1048594, 196610, 4, 1048593, 262146, 4, 1048592, 327682, 4, 1048591, 196610, 4, 1048590, 262146, 4, 1048589, 196610, 4, 1048588, 131074, 4, 1048587, 131074, 4, 1048586, 196610, 2, 786456, 131074, 1, 786457, 262146, 1, 786458, 262146, 1, 786459, 262146, 1, 786460, 262146, 1, 786461, 393218, 2, 851997, 393218, 3, 917533, 393218, 3, 983069, 393218, 3, 1048605, 393218, 4, 1048604, 262146, 4, 1048603, 327682, 4, 1048602, 131074, 4, 1048601, 327682, 4, 1048600, 65538, 4, 983064, 65538, 3, 917528, 65538, 3, 851992, 65538, 3, 851993, 262146, 3, 851994, 262146, 3, 851995, 327682, 3, 851996, 196610, 2, 917532, 196610, 2, 983068, 262146, 2, 983067, 262146, 3, 983066, 327682, 3, 917529, 327682, 3, 917530, 131074, 3, 917531, 262146, 2, 983065, 262146, 2, 851977, 327682, 2, 786441, 327682, 1, 589827, 393218, 2, 589826, 262146, 1, 589825, 262146, 1, 589824, 262146, 1, 655359, 262146, 1, 655358, 65538, 2, 720894, 65538, 3, 786430, 65538, 3, 851966, 65538, 3, 917502, 65538, 3, 983038, 65538, 3, 1048574, 65538, 3, 1114110, 65538, 3, 1179646, 65538, 3, 1245182, 65538, 3, 1310718, 65538, 3, 1376254, 65538, 3, 1441790, 131074, 2, 1441791, 262146, 3, 1507327, 131074, 4, 1441792, 327682, 4, 1441793, 131074, 4, 1441794, 327682, 4, 1441795, 327682, 4, 1441796, 327682, 4, 1441797, 131074, 4, 1441798, 131074, 4, 1441799, 327682, 4, 1376263, 196610, 3, 1376264, 131074, 3, 1376265, 393218, 3, 1507326, 262146, 4, 1507325, 65538, 4, 1441800, 196610, 4, 1441801, 393218, 4, 1310729, 393218, 3, 1245193, 393218, 3, 1179657, 393218, 3, 1114122, 393218, 4, 917513, 196610, 2, 983049, 262146, 3, 1048585, 196610, 2, 1114121, 262146, 3, 1245192, 131074, 3, 1310728, 327682, 3, 1310727, 327682, 3, 1179656, 262146, 3, 1114120, 131074, 3, 1048584, 327682, 3, 983048, 196610, 2, 917512, 327682, 3, 851976, 262146, 3, 786440, 262146, 1, 1245191, 131074, 3, 1179655, 196610, 2, 1114119, 262146, 2, 1048583, 262146, 3, 983047, 196610, 2, 917511, 196610, 2, 851975, 131074, 3, 786439, 196610, 1, 1376262, 327682, 3, 1310726, 131074, 3, 1245190, 327682, 3, 1179654, 131074, 3, 1114118, 131074, 3, 1048582, 262146, 3, 983046, 262146, 3, 917510, 262146, 2, 851974, 196610, 2, 786438, 327682, 2, 720902, 327682, 1, 1376261, 262146, 3, 1310725, 196610, 3, 1245189, 262146, 3, 1179653, 262146, 2, 1114117, 196610, 3, 1048581, 196610, 2, 983045, 262146, 3, 917509, 327682, 3, 851973, 196610, 2, 786437, 327682, 3, 720901, 196610, 1, 1376260, 262146, 3, 1310724, 262146, 3, 1245188, 131074, 3, 1179652, 262146, 2, 1114116, 262146, 3, 1048580, 196610, 2, 983044, 131074, 3, 917508, 262146, 2, 851972, 262146, 3, 786436, 327682, 3, 720900, 196610, 1, 1376259, 196610, 2, 1310723, 196610, 3, 1245187, 262146, 3, 1179651, 196610, 3, 1114115, 196610, 2, 1048579, 131074, 3, 983043, 262146, 3, 917507, 262146, 2, 851971, 196610, 2, 786435, 327682, 3, 720899, 327682, 2, 655363, 393218, 3, 1376258, 196610, 3, 1310722, 262146, 3, 1245186, 327682, 3, 1179650, 262146, 2, 1114114, 262146, 3, 1048578, 262146, 2, 983042, 131074, 3, 917506, 262146, 3, 851970, 196610, 3, 786434, 196610, 3, 720898, 131074, 3, 655362, 262146, 3, 1376257, 327682, 3, 1310721, 262146, 2, 1245185, 131074, 3, 1179649, 196610, 2, 1114113, 196610, 3, 1048577, 262146, 2, 983041, 262146, 3, 917505, 262146, 2, 851969, 196610, 3, 786433, 196610, 2, 720897, 196610, 2, 655361, 327682, 3, 1376256, 262146, 3, 1310720, 196610, 2, 1245184, 131074, 3, 1179648, 196610, 2, 1114112, 196610, 2, 1048576, 131074, 3, 983040, 131074, 3, 917504, 262146, 2, 851968, 131074, 3, 786432, 327682, 3, 720896, 196610, 2, 655360, 262146, 2, 1376255, 262146, 3, 1310719, 262146, 3, 1245183, 131074, 3, 1179647, 262146, 2, 1114111, 196610, 2, 1048575, 196610, 3, 983039, 196610, 3, 917503, 131074, 3, 851967, 262146, 3, 786431, 196610, 2, 720895, 196610, 2, 1441789, 131074, 1)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2(10, 10)
+texture = ExtResource("11_hnjod")
+region_enabled = true
+region_rect = Rect2(0, 0, 53, 17)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(642, 293)
+scale = Vector2(-5, 5)
+texture = ExtResource("11_hnjod")
+region_enabled = true
+region_rect = Rect2(0, 0, 53, 17)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Snake" parent="Enemies" instance=ExtResource("13_x4nuu")]
+curve = SubResource("Curve2D_s8h2o")
+
+[node name="Snake2" parent="Enemies" instance=ExtResource("13_x4nuu")]
+position = Vector2(669, -43)
+curve = SubResource("Curve2D_s8h2o")
+
+[node name="Snake3" parent="Enemies" instance=ExtResource("13_x4nuu")]
+position = Vector2(859, -43)
+curve = SubResource("Curve2D_s8h2o")
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="DestructibleBlock" type="StaticBody2D" parent="Blocks"]
+position = Vector2(585, 280)
+collision_mask = 2
+script = ExtResource("15_vl4wy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Blocks/DestructibleBlock"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("15_m2dnt")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Blocks/DestructibleBlock"]
+position = Vector2(1, 3.5)
+shape = SubResource("RectangleShape2D_6rore")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Blocks/DestructibleBlock"]
+libraries = {
+"": SubResource("AnimationLibrary_ddoqq")
+}
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="MovingPlatform" parent="Platforms" instance=ExtResource("17_bunfm")]
+curve = SubResource("Curve2D_u8uk7")
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(536, 367)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(643, 367)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(1011, 367)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(1104, 367)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(1104, 314)
+
+[node name="Coin7" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(740, 314)
+
+[node name="Coin8" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(1696, 314)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("12_hsqmw")]
+position = Vector2(1201, 367)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TouchLeft" type="TouchScreenButton" parent="HUD"]
+position = Vector2(53, 561)
+scale = Vector2(3.5, 3.5)
+texture_normal = ExtResource("18_nsr6j")
+texture_pressed = ExtResource("19_q5lyq")
+action = "move_left"
+
+[node name="TouchRight" type="TouchScreenButton" parent="HUD"]
+position = Vector2(212, 561)
+scale = Vector2(3.5, 3.5)
+texture_normal = ExtResource("20_b6t1g")
+texture_pressed = ExtResource("21_r4d5d")
+action = "move_right"
+
+[node name="TouchUp" type="TouchScreenButton" parent="HUD"]
+position = Vector2(1103, 561)
+scale = Vector2(3.5, 3.5)
+texture_normal = ExtResource("22_kplho")
+texture_pressed = ExtResource("23_oon37")
+action = "jump"
+
+[node name="Panel" type="Panel" parent="HUD"]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m4wt8")
+
+[node name="Sprite2D" type="Sprite2D" parent="HUD/Panel"]
+texture_filter = 1
+position = Vector2(1239, 48)
+scale = Vector2(4, 4)
+texture = ExtResource("24_umxft")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="CoinsLabel" type="Label" parent="HUD/Panel"]
+layout_mode = 2
+offset_left = 1008.0
+offset_top = 2.0
+offset_right = 1208.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(0.768627, 0.717647, 0.2, 1)
+theme_override_fonts/font = ExtResource("25_1t0yg")
+theme_override_font_sizes/font_size = 72
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="spawn_point" type="Marker2D" parent="."]
+position = Vector2(57, 254)
+
+[node name="RewspawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="End" type="Area2D" parent="."]
+position = Vector2(2395, 373)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collision" type="CollisionShape2D" parent="End"]
+position = Vector2(0, -181)
+shape = SubResource("RectangleShape2D_km32a")
+
+[node name="Sprite2D" type="Sprite2D" parent="End"]
+position = Vector2(23, -20)
+texture = ExtResource("24_04f1b")
+
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="body_entered" from="Player/Body" to="Player" method="_on_body_body_entered"]
+[connection signal="body_entered" from="Player/Feet" to="Player" method="_on_feet_body_entered"]
+[connection signal="body_entered" from="Player/Head" to="Player" method="_on_head_body_entered"]
+[connection signal="timeout" from="RewspawnTimer" to="." method="_on_rewspawn_timer_timeout"]
+[connection signal="body_entered" from="End" to="." method="_on_end_body_entered"]

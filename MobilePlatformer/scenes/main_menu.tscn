@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgn7ic23qsxw8"]
+
+[ext_resource type="Script" path="res://scritps/main_menu.gd" id="1_28w3j"]
+[ext_resource type="Texture2D" uid="uid://6d6ywo7rx26i" path="res://add_ons/Course/sign.png" id="1_p3q06"]
+[ext_resource type="FontFile" uid="uid://mywydc0lam5c" path="res://add_ons/Abstract Platformer/Kenney Mini.ttf" id="3_sc8pn"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_28w3j")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -318.0
+offset_right = 152.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("1_p3q06")
+texture_pressed = ExtResource("1_p3q06")
+texture_hover = ExtResource("1_p3q06")
+texture_disabled = ExtResource("1_p3q06")
+texture_focused = ExtResource("1_p3q06")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -80.0
+offset_right = 103.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_sc8pn")
+theme_override_font_sizes/font_size = 72
+text = "Start"
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

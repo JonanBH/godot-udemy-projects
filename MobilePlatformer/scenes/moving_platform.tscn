@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://c34fk0v7m5358"]
+
+[ext_resource type="Script" path="res://scritps/moving_platform.gd" id="1_iity2"]
+[ext_resource type="Texture2D" uid="uid://bsys6pscodv6l" path="res://add_ons/Rocky Roads/Tilesets/tileset_dirt.png" id="2_4akv0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1252"]
+size = Vector2(96, 26)
+
+[node name="MovingPlatform" type="Path2D"]
+script = ExtResource("1_iity2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(1008, 400)
+rotation = -0.0043478
+rotates = false
+loop = false
+
+[node name="AnimatableBody2D" type="CharacterBody2D" parent="PathFollow2D"]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/AnimatableBody2D"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_4akv0")
+region_enabled = true
+region_rect = Rect2(128, 48, 48, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/AnimatableBody2D"]
+position = Vector2(-1.90735e-06, -3)
+shape = SubResource("RectangleShape2D_s1252")
+one_way_collision = true
+
+[node name="MoveDelay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="MoveDelay" to="." method="_on_move_delay_timeout"]

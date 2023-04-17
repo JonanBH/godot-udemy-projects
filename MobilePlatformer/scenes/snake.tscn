@@ -1,0 +1,150 @@
+[gd_scene load_steps=16 format=3 uid="uid://pgcbusyyaply"]
+
+[ext_resource type="Script" path="res://scritps/snake.gd" id="1_x455g"]
+[ext_resource type="Script" path="res://scritps/enemy.gd" id="2_oq57h"]
+[ext_resource type="Texture2D" uid="uid://uaklchjtynrf" path="res://add_ons/Rocky Roads/Enemies/snake.png" id="2_rjd1m"]
+[ext_resource type="Texture2D" uid="uid://dpsylf4jannek" path="res://add_ons/Rocky Roads/FX/hit.png" id="4_gckus"]
+
+[sub_resource type="Animation" id="Animation_ymhsl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wpdc4"]
+resource_name = "craw"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 1, 7]
+}
+
+[sub_resource type="Animation" id="Animation_m2l1w"]
+resource_name = "defeated"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ttm6o"]
+_data = {
+"RESET": SubResource("Animation_ymhsl"),
+"craw": SubResource("Animation_wpdc4"),
+"defeated": SubResource("Animation_m2l1w")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ehaqy"]
+size = Vector2(32, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qendp"]
+atlas = ExtResource("4_gckus")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpsx0"]
+atlas = ExtResource("4_gckus")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frpfe"]
+atlas = ExtResource("4_gckus")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oboux"]
+atlas = ExtResource("4_gckus")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bswru"]
+atlas = ExtResource("4_gckus")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bytwl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qendp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpsx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frpfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oboux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bswru")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[node name="Snake" type="Path2D"]
+position = Vector2(0, -10)
+script = ExtResource("1_x455g")
+speed = 30
+
+[node name="Follow" type="PathFollow2D" parent="."]
+position = Vector2(790, 376)
+rotates = false
+loop = false
+
+[node name="Enemy" type="CharacterBody2D" parent="Follow"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("2_oq57h")
+
+[node name="Sprite2D" type="Sprite2D" parent="Follow/Enemy"]
+texture_filter = 1
+position = Vector2(0, -14)
+scale = Vector2(2, 2)
+texture = ExtResource("2_rjd1m")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Follow/Enemy"]
+autoplay = "craw"
+libraries = {
+"": SubResource("AnimationLibrary_ttm6o")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Follow/Enemy"]
+position = Vector2(-1, 9)
+shape = SubResource("RectangleShape2D_ehaqy")
+
+[node name="HitFX" type="AnimatedSprite2D" parent="Follow/Enemy"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_bytwl")
+animation = &"hit"
+
+[node name="162639" type="Timer" parent="Follow"]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="died" from="Follow/Enemy" to="." method="_on_enemy_died"]
